@@ -227,14 +227,14 @@ export default function Page() {
           <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-8"></div>
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Hello, My name is Mustafo. I'm a junior front-end developer from Kulob, Tajikistan. Born in 2008, I
+              Hello, My name is Mustafo. I`m a junior front-end developer from Kulob, Tajikistan. Born in 2008, I
               discovered my passion for web development at an early age and have been actively learning modern
               technologies ever since.
             </p>
             <div className="my-6 border-t border-gray-200 dark:border-gray-700"></div>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              I'm motivated to grow in the IT field and enjoy building clean, user-friendly, and visually appealing
-              interfaces. I'm always eager to take on new challenges and improve my skills.
+              I`m motivated to grow in the IT field and enjoy building clean, user-friendly, and visually appealing
+              interfaces. I`m always eager to take on new challenges and improve my skills.
             </p>
           </div>
 
