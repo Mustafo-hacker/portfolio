@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { ChevronDown, GitlabIcon as GitHub, Linkedin, Mail, ExternalLink, Star } from "lucide-react"
+import { ChevronDown, GitlabIcon as GitHub, Linkedin, Mail, ExternalLink, Star, User, Phone, Send } from "lucide-react"
 import axios from "axios"
 
 export default function Page() {
@@ -20,25 +20,43 @@ export default function Page() {
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
   const [phone, setPhone] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   const chatId = "7098903235"
   const tokenBot = "7643490968:AAFsCEe7tl2n_Y9fzyLnYyaFBhpuPrGkkkM"
 
   const sendToTelegram = async () => {
+    if (!name || !desc || !phone) return
+
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
     const text = `
-    New Massage from site:
-    Name: ${name}
-    Gmail: ${desc}
-    Phone: ${phone}
-    `
+<b>🌟 New Message from Portfolio Website 🌟</b>
+    
+<b>👤 Name:</b> ${name}
+<b>📧 Email:</b> ${desc}
+<b>📱 Phone:</b> ${phone}
+    
+<i>Sent from Mustafo's Portfolio</i>
+`
+
     try {
       await axios.post(`https://api.telegram.org/bot${tokenBot}/sendMessage`, {
         chat_id: chatId,
         text: text,
-        parse_mode: 'HTML'
+        parse_mode: "HTML",
       })
+      setSubmitStatus("success")
+      setName("")
+      setDesc("")
+      setPhone("")
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -109,7 +127,7 @@ export default function Page() {
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
-              onAnimationComplete={() => { }}
+              onAnimationComplete={() => {}}
             />
           )}
         </AnimatePresence>
@@ -223,20 +241,31 @@ export default function Page() {
           <div className="mt-12">
             <h3 className="text-2xl font-semibold mb-6">My Skills</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-white">
-              {["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS", "Framer Motion", "Git", "Git-Hub", "Redux-toolkit", "Zustand", "Redux-toolkit Query"].map(
-                (skill, index) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md"
-                  >
-                    {skill}
-                  </motion.div>
-                ),
-              )}
+              {[
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Next.js",
+                "Tailwind CSS",
+                "Framer Motion",
+                "Git",
+                "Git-Hub",
+                "Redux-toolkit",
+                "Zustand",
+                "Redux-toolkit Query",
+              ].map((skill, index) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md"
+                >
+                  {skill}
+                </motion.div>
+              ))}
             </div>
           </div>
         </motion.div>
@@ -249,7 +278,7 @@ export default function Page() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-3xl font-semibold text-center mb-2">Projects</h2>
+          <h2 className="text-3xl text-white font-semibold text-center mb-2">Projects</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-10"></div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -367,17 +396,87 @@ export default function Page() {
           </div>
 
           <motion.div
-            className="mt-16"
+            className="mt-16 max-w-md mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <input value={name} onChange={(e) => setName(e.target.value)} className="border-2" type="text" />
-            <input value={desc} onChange={(e) => setDesc(e.target.value)} className="border-2" type="text" />
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border-2" type="text" />
-            <button onClick={sendToTelegram} className="border-2">Send a massage</button>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+              <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-white">Send me a message</h3>
+
+              <div className="space-y-4">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    type="text"
+                    placeholder="Your Name"
+                  />
+                </div>
+
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    type="email"
+                    placeholder="Your Email"
+                  />
+                </div>
+
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Phone className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    type="tel"
+                    placeholder="Your Phone Number"
+                  />
+                </div>
+
+                <motion.button
+                  onClick={sendToTelegram}
+                  disabled={isSubmitting || !name || !desc || !phone}
+                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-medium shadow-lg transition-all ${
+                    isSubmitting || !name || !desc || !phone
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-xl hover:opacity-90"
+                  }`}
+                  whileHover={{ scale: isSubmitting || !name || !desc || !phone ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting || !name || !desc || !phone ? 1 : 0.98 }}
+                >
+                  {isSubmitting ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
+                </motion.button>
+
+                {submitStatus === "success" && (
+                  <p className="text-green-500 text-sm mt-2">Message sent successfully!</p>
+                )}
+
+                {submitStatus === "error" && (
+                  <p className="text-red-500 text-sm mt-2">Failed to send message. Please try again.</p>
+                )}
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-8">
               &copy; {new Date().getFullYear()} Mustafo Hafizov. All rights reserved.
             </p>
           </motion.div>
