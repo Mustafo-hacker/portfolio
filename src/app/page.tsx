@@ -243,7 +243,7 @@ export default function Page() {
 
           <div className="mt-12">
             <h3 className="text-2xl font-semibold mb-6">My Skills</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-white">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 "HTML",
                 "CSS",
