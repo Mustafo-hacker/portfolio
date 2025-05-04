@@ -281,7 +281,7 @@ export default function Page() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-3xl text-white font-semibold text-center mb-2">Projects</h2>
+          <h2 className="text-3xl font-semibold text-center mb-2">Projects</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-10"></div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
