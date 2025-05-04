@@ -77,9 +77,12 @@ export default function Page() {
     generateStars()
   }, [])
 
-  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" })
-  }
+  const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <main className="min-h-screen relative">
@@ -127,7 +130,7 @@ export default function Page() {
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
-              onAnimationComplete={() => {}}
+              onAnimationComplete={() => { }}
             />
           )}
         </AnimatePresence>
@@ -448,11 +451,10 @@ export default function Page() {
                 <motion.button
                   onClick={sendToTelegram}
                   disabled={isSubmitting || !name || !desc || !phone}
-                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-medium shadow-lg transition-all ${
-                    isSubmitting || !name || !desc || !phone
+                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-medium shadow-lg transition-all ${isSubmitting || !name || !desc || !phone
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-xl hover:opacity-90"
-                  }`}
+                    }`}
                   whileHover={{ scale: isSubmitting || !name || !desc || !phone ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting || !name || !desc || !phone ? 1 : 0.98 }}
                 >
