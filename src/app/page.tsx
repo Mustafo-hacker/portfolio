@@ -23,8 +23,8 @@ export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
-  const chatId = "7098903235"
-  const tokenBot = "7643490968:AAFsCEe7tl2n_Y9fzyLnYyaFBhpuPrGkkkM"
+  const chatId = "843187550"
+  const tokenBot = "7836459119:AAG6YEk6YpLV1YyT2UCsm7bQPSMYp4LGxZo"
 
   const sendToTelegram = async () => {
     if (!name || !desc || !phone) return
@@ -75,7 +75,7 @@ export default function Page() {
     }
 
     generateStars()
-  }, [])
+  }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     if (ref.current) {
